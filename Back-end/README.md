@@ -1,2 +1,1 @@
-# Econum-TP
-Econum-TP
+pip install -r requirements.txt
