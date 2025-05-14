@@ -7,14 +7,14 @@ def dTc_dt(Tc, t, Ta, ws, I):
     return (facteur * droite) / 60
 
 def solve_temperature(Tc0, Ta, ws, I):
-    dt = 1.0
+    dt = 0.1
     T_total = 30 * 60  # 30 minutes en secondes
     N = int(T_total / dt)
     t_vals = np.linspace(0, T_total, N + 1)
     sol = odeint(dTc_dt, Tc0, t_vals, args=(Ta, ws, I))
 
     minutes = np.arange(0, 31)  # de 0 à 30 minutes inclus
-    indices = (minutes * 60).astype(int)
+    indices = (minutes * 60 / dt).astype(int)
     temperatures = sol[indices, 0]
 
     return minutes, temperatures
