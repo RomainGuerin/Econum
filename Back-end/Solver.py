@@ -1,10 +1,13 @@
 import numpy as np
 from scipy.integrate import odeint
 
+
 # Équation différentielle : dérivée de Tc en fonction du temps
 def dTc_dt(Tc, t, Ta, ws, I):
-    # Formule fournie dans l'énoncé
-    return ( - ws / (21600 * 0.4) - 0.1 * (Tc - Ta) - I / (1.473785 * 130) ) / 60
+    facteur = (- (ws ** 2) / 1600) * 0.4 - 0.1
+    droite = (Tc - Ta - (I ** 1.4) / (73785 * 130))
+    return (facteur * droite) / 60
+
 
 # Fonction principale qui résout Tc sur 30 minutes
 def solve_temperature(Tc0, Ta, ws, I, duration_min=30):
