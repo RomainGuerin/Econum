@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
 from Solver import solve_temperature
 
-
-
 app = Flask(__name__)
+
+@app.route("/", methods=["GET"])
+def index():
+    return jsonify({"message": "Bienvenue sur l'API de simulation de température."})
 
 @app.route("/predict", methods=["GET"])
 def predict():
