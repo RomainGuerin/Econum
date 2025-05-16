@@ -1,10 +1,15 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { TemperatureForecastChart } from "@/components/temperature/temperature-forecast-chart"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ThermometerSnowflake, RefreshCw } from "lucide-react"
+import { useState } from "react"
 
 export default function TemperatureForecast() {
+  const [refreshKey, setRefreshKey] = useState(0)
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -12,7 +17,12 @@ export default function TemperatureForecast() {
           Prévisions de température
         </h1>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" className="group">
+          <Button
+            variant="outline"
+            size="sm"
+            className="group"
+            onClick={() => setRefreshKey((k) => k + 1)}
+          >
             <RefreshCw className="mr-2 h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
             <span>Actualiser</span>
           </Button>
@@ -46,7 +56,7 @@ export default function TemperatureForecast() {
         </CardHeader>
         <CardContent className="p-0">
           <div className="h-[400px] p-6">
-            <TemperatureForecastChart />
+            <TemperatureForecastChart refreshKey={refreshKey} />
           </div>
         </CardContent>
       </Card>
