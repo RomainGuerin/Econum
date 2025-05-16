@@ -1,16 +1,11 @@
 "use client"
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-  ReferenceLine,
-} from "recharts"
+import { useEffect, useState } from "react"
+import { LineChart, Line, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts"
+
+type Props = {
+  refreshKey: number
+}
 
 // Données simulées pour les prévisions de température
 const generateForecastData = () => {
@@ -43,76 +38,28 @@ const generateForecastData = () => {
   return data
 }
 
-const data = generateForecastData()
+export function TemperatureForecastChart({ refreshKey }: Props) {
+  const [data, setData] = useState<{ minute: number, temperature: number }[]>([])
 
-export function TemperatureForecastChart() {
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/predict")
+      .then(res => res.json())
+      .then(json => {
+        const chartData = json.minutes.map((minute: number, i: number) => ({
+          minute,
+          temperature: json.temperature[i]
+        }))
+        setData(chartData)
+      })
+  }, [refreshKey])
+
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        data={data}
-        margin={{
-          top: 20,
-          right: 30,
-          left: 20,
-          bottom: 10,
-        }}
-      >
-        <defs>
-          <linearGradient id="predictedGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="hsl(var(--primary))" />
-            <stop offset="100%" stopColor="hsl(var(--secondary))" />
-          </linearGradient>
-          <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="hsl(var(--primary) / 0.3)" />
-            <stop offset="100%" stopColor="hsl(var(--primary) / 0)" />
-          </linearGradient>
-        </defs>
-        <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-        <XAxis
-          dataKey="time"
-          label={{ value: "Temps (minutes)", position: "insideBottomRight", offset: -10 }}
-          tickFormatter={(value, index) => (index % 5 === 0 ? value : "")}
-        />
-        <YAxis
-          domain={["dataMin - 1", "dataMax + 1"]}
-          label={{ value: "Température (°C)", angle: -90, position: "insideLeft" }}
-        />
-        <Tooltip
-          formatter={(value) => [`${value}°C`, ""]}
-          labelFormatter={(label, items) => `Temps: ${label} (${items[0]?.payload.minute} min)`}
-          contentStyle={{
-            borderRadius: "0.5rem",
-            border: "1px solid hsl(var(--border))",
-            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-          }}
-        />
-        <Legend />
-        <ReferenceLine y={28} stroke="hsl(var(--destructive) / 0.5)" strokeDasharray="3 3" label="Seuil critique" />
-        <Line
-          name="Marge supérieure"
-          type="monotone"
-          dataKey="upperBound"
-          stroke="hsl(var(--muted-foreground) / 0.5)"
-          strokeDasharray="3 3"
-          dot={false}
-        />
-        <Line
-          name="Prévision"
-          type="monotone"
-          dataKey="predicted"
-          stroke="url(#predictedGradient)"
-          strokeWidth={3}
-          activeDot={{ r: 8, fill: "hsl(var(--primary))" }}
-          dot={false}
-        />
-        <Line
-          name="Marge inférieure"
-          type="monotone"
-          dataKey="lowerBound"
-          stroke="hsl(var(--muted-foreground) / 0.5)"
-          strokeDasharray="3 3"
-          dot={false}
-        />
+      <LineChart data={data}>
+        <XAxis dataKey="minute" label={{ value: "Minutes", position: "insideBottomRight", offset: -5 }} />
+        <YAxis label={{ value: "Température (°C)", angle: -90, position: "insideLeft" }} />
+        <Tooltip />
+        <Line type="monotone" dataKey="temperature" stroke="#4fd1c5" strokeWidth={2} dot={false} />
       </LineChart>
     </ResponsiveContainer>
   )

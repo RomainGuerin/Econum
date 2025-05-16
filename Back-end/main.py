@@ -1,11 +1,21 @@
 from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware  # <-- Ajouté
 from Solver import solve_temperature
 
 app = FastAPI(
     title="API de simulation de température",
     version="1.0.0",
     description="Cette API simule la température d'un câble électrique en fonction de divers paramètres."
+)
+
+# Ajoute ce bloc pour autoriser toutes les origines (CORS)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Autorise toutes les origines
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.get("/")
