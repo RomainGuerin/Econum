@@ -87,7 +87,6 @@ export default function Dashboard() {
     <TemperatureForecastChart refreshKey={0} />
   </div>
   <div className="flex justify-between mt-4">
-    <div>Dernière prévision: il y a 5 minutes</div>
     <Button variant="outline" size="sm" asChild className="group/btn">
       <Link href="/previsions">
         <span>Voir les détails</span>
