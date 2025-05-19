@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { CurrentTemperatureChart } from "@/components/dashboard/current-temperature-chart"
 import { WeatherInfo } from "@/components/dashboard/weather-info"
 import { IntensityMeter } from "@/components/dashboard/intensity-meter"
+import { TemperatureForecastChart } from "@/components/temperature/temperature-forecast-chart"
 
 export default function Dashboard() {
   return (
@@ -72,6 +73,7 @@ export default function Dashboard() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {/* Prévisions de température */}
         <Card className="group hover:shadow-lg transition-all duration-300">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -80,15 +82,20 @@ export default function Dashboard() {
             </CardTitle>
             <CardDescription>Graphique minute par minute sur les 30 minutes à venir</CardDescription>
           </CardHeader>
-          <CardContent className="flex justify-between">
-            <div>Dernière prévision: il y a 5 minutes</div>
-            <Button variant="outline" size="sm" asChild className="group/btn">
-              <Link href="/previsions">
-                <span>Voir les détails</span>
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
-              </Link>
-            </Button>
-          </CardContent>
+      <CardContent>
+  <div className="h-40"> {/* Ajuste la hauteur ici, ex: h-32, h-40, h-48 */}
+    <TemperatureForecastChart refreshKey={0} />
+  </div>
+  <div className="flex justify-between mt-4">
+    <div>Dernière prévision: il y a 5 minutes</div>
+    <Button variant="outline" size="sm" asChild className="group/btn">
+      <Link href="/previsions">
+        <span>Voir les détails</span>
+        <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
+      </Link>
+    </Button>
+  </div>
+</CardContent>
         </Card>
 
         <Card className="group hover:shadow-lg transition-all duration-300">
