@@ -83,7 +83,7 @@ export default function Dashboard() {
             <CardDescription>Graphique minute par minute sur les 30 minutes à venir</CardDescription>
           </CardHeader>
       <CardContent>
-  <div className="h-40"> {/* Ajuste la hauteur ici, ex: h-32, h-40, h-48 */}
+  <div className="h-40"> {}
     <TemperatureForecastChart refreshKey={0} />
   </div>
   <div className="flex justify-between mt-4">
