@@ -110,27 +110,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="group hover:shadow-lg transition-all duration-300">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Webhook className="h-5 w-5 text-accent" />
-              <span>API & Contrôle robot</span>
-            </CardTitle>
-            <CardDescription>Documentation et test des endpoints</CardDescription>
-          </CardHeader>
-          <CardContent className="flex justify-between">
-            <div className="flex items-center gap-2">
-              <span className="inline-block h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-              <span>Opérationnel</span>
-            </div>
-            <Button variant="outline" size="sm" asChild className="group/btn">
-              <Link href="/api-control">
-                <span>Accéder</span>
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover/btn:translate-x-1" />
-              </Link>
-            </Button>
-          </CardContent>
-        </Card>
       </div>
     </div>
   )

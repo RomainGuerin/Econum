@@ -34,11 +34,7 @@ export function AppSidebar() {
       href: "/consommation",
       icon: Leaf,
     },
-    {
-      title: "API & Contrôle robot",
-      href: "/api-control",
-      icon: Webhook,
-    },
+   
   ]
 
   return (
