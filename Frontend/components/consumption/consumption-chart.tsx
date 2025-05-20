@@ -2,33 +2,12 @@
 
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 
-// Données simulées pour la consommation énergétique
-const generateConsumptionData = () => {
-  const data = []
-  const now = new Date()
+export function ConsumptionChart({ temperature }: { temperature: number[] }) {
+  const data = (temperature || []).map((temp: number, idx: number) => ({
+    time: idx.toString(),
+    consumption: temp,
+  }))
 
-  for (let i = 0; i < 24; i++) {
-    const time = new Date(now.getTime() - (23 - i) * 3600000)
-    const hours = time.getHours().toString().padStart(2, "0")
-    const timeLabel = `${hours}:00`
-
-    // Simulation d'une courbe de consommation avec des variations
-    const baseConsumption = 80 + Math.random() * 20
-    const peakFactor = i >= 8 && i <= 18 ? 1.5 : 1 // Plus élevé pendant les heures de travail
-    const consumption = baseConsumption * peakFactor
-
-    data.push({
-      time: timeLabel,
-      consumption: Math.round(consumption),
-    })
-  }
-
-  return data
-}
-
-const data = generateConsumptionData()
-
-export function ConsumptionChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart
