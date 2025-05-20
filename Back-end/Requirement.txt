@@ -7,3 +7,4 @@ matplotlib==3.10.3
 tqdm==4.67.1
 numba==0.61.2
 psutil==7.0.0
+codecarbon==3.0.1
