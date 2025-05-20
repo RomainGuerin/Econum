@@ -14,26 +14,7 @@ export default function Dashboard() {
         <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           Tableau de bord
         </h1>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" className="group">
-            <span>Actualiser</span>
-            <svg
-              className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:rotate-180"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
-              <path d="M21 3v5h-5" />
-              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
-              <path d="M8 16H3v5" />
-            </svg>
-          </Button>
-        </div>
+  
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

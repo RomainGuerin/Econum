@@ -13,16 +13,6 @@ export default function ConsumptionPage() {
           Consommation & CO₂
         </h1>
         <div className="flex items-center gap-2">
-          <Select defaultValue="day">
-            <SelectTrigger className="w-[150px]">
-              <SelectValue placeholder="Période" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="day">Aujourd'hui</SelectItem>
-              <SelectItem value="week">Cette semaine</SelectItem>
-              <SelectItem value="month">Ce mois</SelectItem>
-            </SelectContent>
-          </Select>
           <Button variant="outline" size="sm" className="group">
             <RefreshCw className="mr-2 h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
             <span>Actualiser</span>

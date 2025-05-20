@@ -46,9 +46,7 @@ export default function TemperatureForecast() {
                   <SelectValue placeholder="Horizon" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="15">15 minutes</SelectItem>
                   <SelectItem value="30">30 minutes</SelectItem>
-                  <SelectItem value="60">60 minutes</SelectItem>
                 </SelectContent>
               </Select>
             </div>
