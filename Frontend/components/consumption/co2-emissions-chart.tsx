@@ -2,36 +2,20 @@
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 
-// Données simulées pour les émissions de CO2
-const generateCO2Data = () => {
-  const data = []
-  const now = new Date()
-
-  for (let i = 0; i < 24; i++) {
-    const time = new Date(now.getTime() - (23 - i) * 3600000)
-    const hours = time.getHours().toString().padStart(2, "0")
-    const timeLabel = `${hours}:00`
-
-    // Simulation d'une courbe d'émissions basée sur la consommation
-    const baseConsumption = 80 + Math.random() * 20
-    const peakFactor = i >= 8 && i <= 18 ? 1.5 : 1 // Plus élevé pendant les heures de travail
-    const consumption = baseConsumption * peakFactor
-
-    // Conversion en CO2 (g) avec un facteur d'émission de 200g/kWh
-    const co2 = (consumption / 1000) * 200
-
-    data.push({
-      time: timeLabel,
-      co2: Math.round(co2),
-    })
-  }
-
-  return data
+function generateCO2Data(temperature: number[] = [], co2_kg: number = 0) {
+  // Répartit le CO2 total proportionnellement à la température (ou uniformément si pas de température)
+  const n = temperature.length || 1
+  const totalCo2_g = co2_kg * 1000
+  const sumTemp = temperature.reduce((a, b) => a + b, 0) || 1
+  return (temperature.length ? temperature : Array(n).fill(1)).map((temp, idx) => ({
+    time: idx.toString(),
+    co2: Math.round((temp / sumTemp) * totalCo2_g),
+  }))
 }
 
-const data = generateCO2Data()
+export function CO2EmissionsChart({ co2_kg, temperature }: { co2_kg: number; temperature: number[] }) {
+  const data = generateCO2Data(temperature, co2_kg)
 
-export function CO2EmissionsChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart

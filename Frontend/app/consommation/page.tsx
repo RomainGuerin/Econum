@@ -1,11 +1,39 @@
+"use client"
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ConsumptionChart } from "@/components/consumption/consumption-chart"
-import { CO2EmissionsChart } from "@/components/consumption/co2-emissions-chart"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Leaf, RefreshCw, Zap, BarChart3 } from "lucide-react"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function ConsumptionPage() {
+  const [metrics, setMetrics] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchMetrics = async () => {
+      setLoading(true)
+      try {
+        const res = await fetch("http://127.0.0.1:8000/metrics_detailed?Tc0=25&Ta=20&ws=1&I=100")
+        const json = await res.json()
+        setMetrics(json)
+      } catch (e) {
+        setMetrics(null)
+      }
+      setLoading(false)
+    }
+    fetchMetrics()
+  }, [])
+
+  // Calculs dynamiques
+  const total =
+    (metrics?.cpu_energy_kWh || 0) +
+    (metrics?.gpu_energy_kWh || 0) +
+    (metrics?.ram_energy_kWh || 0)
+  const cpuPercent = total ? ((metrics?.cpu_energy_kWh / total) * 100).toFixed(0) : 0
+  const gpuPercent = total ? ((metrics?.gpu_energy_kWh / total) * 100).toFixed(0) : 0
+  const ramPercent = total ? ((metrics?.ram_energy_kWh / total) * 100).toFixed(0) : 0
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -13,6 +41,7 @@ export default function ConsumptionPage() {
           Consommation & CO₂
         </h1>
         <div className="flex items-center gap-2">
+       
           <Button variant="outline" size="sm" className="group">
             <RefreshCw className="mr-2 h-4 w-4 transition-transform duration-200 group-hover:rotate-180" />
             <span>Actualiser</span>
@@ -21,6 +50,7 @@ export default function ConsumptionPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
+        {/* Consommation énergétique */}
         <Card className="overflow-hidden shadow-md">
           <CardHeader className="bg-gradient-to-r from-primary/10 to-transparent border-b">
             <CardTitle className="flex items-center gap-2">
@@ -32,27 +62,18 @@ export default function ConsumptionPage() {
           <CardContent className="p-6">
             <div className="space-y-8">
               <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-lg bg-muted p-4">
+                <div className="rounded-lg bg-muted p-4 col-span-2">
                   <div className="text-sm text-muted-foreground">Total consommé</div>
                   <div className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    2.4 kWh
+                    {loading ? <Skeleton className="h-8 w-24" /> : `${total} kWh`}
                   </div>
                 </div>
-                <div className="rounded-lg bg-muted p-4">
-                  <div className="text-sm text-muted-foreground">Puissance actuelle</div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                    120 W
-                  </div>
-                </div>
-              </div>
-
-              <div className="h-[300px]">
-                <ConsumptionChart />
               </div>
             </div>
           </CardContent>
         </Card>
 
+        {/* Émissions de CO₂ */}
         <Card className="overflow-hidden shadow-md">
           <CardHeader className="bg-gradient-to-r from-secondary/10 to-transparent border-b">
             <CardTitle className="flex items-center gap-2">
@@ -64,28 +85,19 @@ export default function ConsumptionPage() {
           <CardContent className="p-6">
             <div className="space-y-8">
               <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-lg bg-muted p-4">
+                <div className="rounded-lg bg-muted p-4 col-span-2">
                   <div className="text-sm text-muted-foreground">Total émis</div>
                   <div className="text-3xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-                    0.48 kg
+                    {loading ? <Skeleton className="h-8 w-24" /> : `${metrics?.co2_kg} kg`}
                   </div>
                 </div>
-                <div className="rounded-lg bg-muted p-4">
-                  <div className="text-sm text-muted-foreground">Taux d'émission</div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-secondary to-accent bg-clip-text text-transparent">
-                    200 g/kWh
-                  </div>
-                </div>
-              </div>
-
-              <div className="h-[300px]">
-                <CO2EmissionsChart />
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
+      {/* Détails de consommation par composant */}
       <Card className="overflow-hidden shadow-md">
         <CardHeader className="bg-gradient-to-r from-accent/10 to-transparent border-b">
           <CardTitle className="flex items-center gap-2">
@@ -102,14 +114,20 @@ export default function ConsumptionPage() {
                   <CardTitle className="text-sm">CPU</CardTitle>
                 </CardHeader>
                 <CardContent className="p-4 pt-0">
-                  <div className="text-2xl font-bold">1.2 kWh</div>
-                  <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full"
-                      style={{ width: "50%" }}
-                    ></div>
+                  <div className="text-2xl font-bold">
+                    {loading ? <Skeleton className="h-8 w-20" /> : `${metrics?.cpu_energy_kWh} kWh`}
                   </div>
-                  <p className="mt-1 text-xs text-muted-foreground">50% du total</p>
+                  <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                    {loading ? <Skeleton className="h-full w-full" /> : (
+                      <div
+                        className="h-full bg-gradient-to-r from-primary to-primary/70 rounded-full"
+                        style={{ width: `${cpuPercent}%` }}
+                      ></div>
+                    )}
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {loading ? <Skeleton className="h-4 w-12" /> : `${cpuPercent}% du total`}
+                  </p>
                 </CardContent>
               </Card>
 
@@ -118,14 +136,20 @@ export default function ConsumptionPage() {
                   <CardTitle className="text-sm">GPU</CardTitle>
                 </CardHeader>
                 <CardContent className="p-4 pt-0">
-                  <div className="text-2xl font-bold">0.6 kWh</div>
-                  <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-secondary to-secondary/70 rounded-full"
-                      style={{ width: "25%" }}
-                    ></div>
+                  <div className="text-2xl font-bold">
+                    {loading ? <Skeleton className="h-8 w-20" /> : `${metrics?.gpu_energy_kWh} kWh`}
                   </div>
-                  <p className="mt-1 text-xs text-muted-foreground">25% du total</p>
+                  <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                    {loading ? <Skeleton className="h-full w-full" /> : (
+                      <div
+                        className="h-full bg-gradient-to-r from-secondary to-secondary/70 rounded-full"
+                        style={{ width: `${gpuPercent}%` }}
+                      ></div>
+                    )}
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {loading ? <Skeleton className="h-4 w-12" /> : `${gpuPercent}% du total`}
+                  </p>
                 </CardContent>
               </Card>
 
@@ -134,30 +158,20 @@ export default function ConsumptionPage() {
                   <CardTitle className="text-sm">RAM</CardTitle>
                 </CardHeader>
                 <CardContent className="p-4 pt-0">
-                  <div className="text-2xl font-bold">0.36 kWh</div>
-                  <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-accent to-accent/70 rounded-full"
-                      style={{ width: "15%" }}
-                    ></div>
+                  <div className="text-2xl font-bold">
+                    {loading ? <Skeleton className="h-8 w-20" /> : `${metrics?.ram_energy_kWh} kWh`}
                   </div>
-                  <p className="mt-1 text-xs text-muted-foreground">15% du total</p>
-                </CardContent>
-              </Card>
-
-              <Card className="overflow-hidden border-l-4 border-l-muted-foreground transition-all duration-300 hover:shadow-md">
-                <CardHeader className="p-4">
-                  <CardTitle className="text-sm">Autres</CardTitle>
-                </CardHeader>
-                <CardContent className="p-4 pt-0">
-                  <div className="text-2xl font-bold">0.24 kWh</div>
                   <div className="mt-2 h-1.5 w-full rounded-full bg-muted overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-muted-foreground to-muted-foreground/70 rounded-full"
-                      style={{ width: "10%" }}
-                    ></div>
+                    {loading ? <Skeleton className="h-full w-full" /> : (
+                      <div
+                        className="h-full bg-gradient-to-r from-accent to-accent/70 rounded-full"
+                        style={{ width: `${ramPercent}%` }}
+                      ></div>
+                    )}
                   </div>
-                  <p className="mt-1 text-xs text-muted-foreground">10% du total</p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {loading ? <Skeleton className="h-4 w-12" /> : `${ramPercent}% du total`}
+                  </p>
                 </CardContent>
               </Card>
             </div>
