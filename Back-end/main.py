@@ -2,7 +2,6 @@ from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
 from Solver import solve_temperature
 from codecarbon import EmissionsTracker
-import time
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(

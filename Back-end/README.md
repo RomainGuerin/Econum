@@ -42,3 +42,7 @@ Url d'exemple pour tester l'API :
 ```bash
 http://127.0.0.1:8000/predict?Tc0=25&Ta=20&ws=2&I=100
 ```
+
+```bash
+http://127.0.0.1:8000/metrics_detailed?Tc0=25&Ta=20&ws=2&I=100
+```
