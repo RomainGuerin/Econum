@@ -2,7 +2,7 @@ from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
 from Solver import solve_temperature
 import time
-
+from codecarbon import EmissionsTracker
 app = FastAPI(
     title="API de simulation de température",
     version="1.0.0",
@@ -33,24 +33,21 @@ def metrics(
     ws: float = Query(1.0),
     I: float = Query(100.0)
 ):
-    print("✅ Route /metrics appelée")  # Debug
-    start = time.perf_counter()  # haute précision
-    _, temps = solve_temperature(Tc0, Ta, ws, I)
-    duration_sec = time.perf_counter() - start  # haute précision
-    duration_ms = round(duration_sec * 1000, 4)
+    tracker = EmissionsTracker(
+        save_to_file=False,
+        log_level="error"
+    )
+    tracker.start()
 
-    # Estimation de la consommation énergétique
-    conso_W = 50  # consommation typique CPU
-    energy_Wh = (conso_W * duration_sec) / 3600
-    co2_kg = energy_Wh * 0.475  # facteur d’émission CO2/kWh
+    _, temps = solve_temperature(Tc0, Ta, ws, I)
+
+    emissions = tracker.stop()
 
     return JSONResponse({
         "Tc0": Tc0,
         "Ta": Ta,
         "ws": ws,
         "I": I,
-        "duration_ms": duration_ms,
-        "energy_Wh": round(energy_Wh, 6),
-        "co2_kg": round(co2_kg, 6),
+        "co2_kg": round(emissions, 6),
         "final_temperature": round(temps[-1], 2)
     })
