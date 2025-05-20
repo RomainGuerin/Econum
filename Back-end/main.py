@@ -2,7 +2,6 @@ from fastapi import FastAPI, Query
 from fastapi.responses import JSONResponse
 from Solver import solve_temperature
 from codecarbon import EmissionsTracker
-import time
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
@@ -61,5 +60,6 @@ def metrics_detailed(
         "cpu_energy_kWh": round(tracker.final_emissions_data.cpu_energy, 9),
         "gpu_energy_kWh": round(tracker.final_emissions_data.gpu_energy, 9),
         "ram_energy_kWh": round(tracker.final_emissions_data.ram_energy, 9),
+        "energy_consumed_kWh": round(tracker.final_emissions_data.energy_consumed, 9),
         "temperature": list(map(lambda t: round(t, 2), temps))
     })
