@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Backend - Documentation Econum</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Backend";
+        var mkdocs_page_input_path = "backend.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Documentation Econum
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Accueil</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../rapport/">Rapport</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../frontend/">Frontend</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Backend</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#description">Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#technologies-utilisees">Technologies utilisées</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#prerequis">Prérequis</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#documentation-api">Documentation API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#tests-dapi">Tests d'API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cython">Cython</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../notebook/">Notebook de test</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../recommandations/">Recommandations</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Documentation Econum</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Backend</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="backend-fiche-de-configuration">Backend - Fiche de configuration</h1>
+<h2 id="description">Description</h2>
+<p>Le backend est développé en Python avec le framework FastAPI.<br />
+Il permet:<br />
+- La simulation de température sur 30 minutes, à partir de paramètres fournis par l’utilisateur (température initiale, vent, intensité…).<br />
+- La mesure de l’énergie et les ressources consommée ainsi que les émissions de CO₂ lors du calcul.<br />
+- Une API REST pour requêtes GET de simulation ou métriques.  </p>
+<h2 id="technologies-utilisees">Technologies utilisées</h2>
+<ul>
+<li><code>FastAPI</code> : API REST performante</li>
+<li><code>CodeCarbon</code> : suivi de l’empreinte carbone et de la consommation de ressources</li>
+<li><code>@lru_cache</code> : mise en cache pour éviter les recalculs</li>
+<li><code>Numba</code> : compilation JIT pour accélérer les calculs lourds</li>
+<li><code>Cython</code> (optionnel) : alternative pour encore plus de performance</li>
+</ul>
+<h2 id="prerequis">Prérequis</h2>
+<ul>
+<li>Python 3.13+</li>
+<li>Cython installé avec pip</li>
+<li>Visual Studio avec le composant "Développement Desktop en C++"</li>
+</ul>
+<h2 id="configuration">Configuration</h2>
+<ol>
+<li>Accéder au dossier Back-end :  </li>
+</ol>
+<pre><code class="language-bash">cd Back-end
+</code></pre>
+<ol>
+<li>Installer les dépendances :</li>
+</ol>
+<pre><code class="language-bash">pip install -r requirement.txt
+</code></pre>
+<ol>
+<li>Exécuter l'application :  </li>
+</ol>
+<pre><code class="language-bash">uvicorn main:app --reload
+</code></pre>
+<ol>
+<li>Accéder à l'application :  </li>
+</ol>
+<pre><code class="language-bash">http://127.0.0.1:8000/
+</code></pre>
+<h2 id="documentation-api">Documentation API</h2>
+<p>Swagger :</p>
+<pre><code class="language-bash">http://127.0.0.1:8000/docs
+</code></pre>
+<p>Et ReDoc :</p>
+<pre><code class="language-bash">http://127.0.0.1:8000/redoc
+</code></pre>
+<h2 id="tests-dapi">Tests d'API</h2>
+<p>Url d'exemple pour tester l'API :  </p>
+<pre><code class="language-bash">http://127.0.0.1:8000/predict?Tc0=25&amp;Ta=20&amp;ws=2&amp;I=100
+http://127.0.0.1:8000/metrics_detailed?Tc0=25&amp;Ta=20&amp;ws=2&amp;I=100
+</code></pre>
+<h2 id="cython">Cython</h2>
+<blockquote>
+<p>/!\ Installer Cython avec pip et "Développement Desktop en C++" sur Visual Studio avant !</p>
+</blockquote>
+<ol>
+<li>Accéder au dossier Cython :  </li>
+</ol>
+<pre><code class="language-bash">cd cython
+</code></pre>
+<ol>
+<li>Installer Cython :  </li>
+</ol>
+<pre><code class="language-bash">pip install cython
+</code></pre>
+<ol>
+<li>Compiler le code :  </li>
+</ol>
+<pre><code class="language-bash">python setup.py build_ext --inplace
+</code></pre>
+<ol>
+<li>Exécuter le code :  </li>
+</ol>
+<pre><code class="language-bash">python main.py
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../frontend/" class="btn btn-neutral float-left" title="Frontend"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../notebook/" class="btn btn-neutral float-right" title="Notebook de test">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../frontend/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../notebook/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
