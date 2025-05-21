@@ -9,6 +9,8 @@ Ce dépôt contient l'application backend pour Econum.
 - [x] Réduire le pas de temps : 0.1s vers 1e-6s (crash pc) car trop de calculs et consommation mémoire
 - [x] Améliorer la vitesse de calcul
 - [x] Ajout possiblement d'un cache pour les calculs
+- [x] CodeCarbon
+- [x] Cython
 
 ## Configuration
 
@@ -34,6 +36,20 @@ http://127.0.0.1:8000/docs
 
 ```bash
 http://127.0.0.1:8000/redoc
+```
+
+## Cython
+
+Pour compiler le code Cython :  
+```bash
+python setup.py build_ext --inplace
+```
+
+/!\ Installer Cython avec pip et "Développement Desktop en C++" sur Visual Studio avant !
+
+Ensuite :
+```bash
+python .\main.py
 ```
 
 ## Tests

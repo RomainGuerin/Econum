@@ -1,4 +1,4 @@
- Frontend Econum
+# Frontend Econum
 
 Ce dépôt contient l'application frontend pour Econum.
 
