@@ -24,17 +24,17 @@ export function AppSidebar() {
       href: "/",
       icon: Home,
     },
-    {
-      title: "Prévisions de température",
-      href: "/previsions",
-      icon: ThermometerSnowflake,
-    },
+ 
     {
       title: "Consommation & CO₂",
       href: "/consommation",
       icon: Leaf,
     },
-   
+      {
+      title: "Prévisions de température",
+      href: "/previsions",
+      icon: ThermometerSnowflake,
+    },
   ]
 
   return (

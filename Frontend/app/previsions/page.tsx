@@ -37,19 +37,9 @@ export default function TemperatureForecast() {
                 <ThermometerSnowflake className="h-5 w-5 text-primary" />
                 <span>Graphique prévisionnel</span>
               </CardTitle>
-              <CardDescription>Résultat de l'intégration ODE minute par minute</CardDescription>
+              <CardDescription> Résultat de l'intégration ODE minute par tranche de 30 minutes </CardDescription>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">Horizon:</span>
-              <Select defaultValue="30">
-                <SelectTrigger className="w-[120px]">
-                  <SelectValue placeholder="Horizon" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="30">30 minutes</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+         
           </div>
         </CardHeader>
         <CardContent className="p-0">

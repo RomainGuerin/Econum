@@ -3,7 +3,6 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
 
 function generateCO2Data(temperature: number[] = [], co2_kg: number = 0) {
-  // Répartit le CO2 total proportionnellement à la température (ou uniformément si pas de température)
   const n = temperature.length || 1
   const totalCo2_g = co2_kg * 1000
   const sumTemp = temperature.reduce((a, b) => a + b, 0) || 1
