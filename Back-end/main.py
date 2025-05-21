@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from Solver import solve_temperature
 from codecarbon import EmissionsTracker
 from fastapi.middleware.cors import CORSMiddleware
+from functools import lru_cache
 
 app = FastAPI(
     title="API de simulation de température",
@@ -39,6 +40,7 @@ def predict(
         return JSONResponse(content={"error": str(e)}, status_code=400)
 
 @app.get("/metrics_detailed")
+@lru_cache(maxsize=None) # Cache pour les résultats d'émissions
 def metrics_detailed(
     Tc0: float = Query(25.0, description="Température initiale du câble"),
     Ta: float = Query(20.0, description="Température ambiante"),
