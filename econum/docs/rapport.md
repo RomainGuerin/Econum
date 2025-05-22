@@ -13,7 +13,7 @@
 
 
 ### Frontend
-- Application React dans `Frontend/`
+- Application React et Next.js dans `Frontend/`
 - Connexion au backend via appels API
 
 > Le backend et le frontend sont séparés dans des sous-dossiers du même dépôt.

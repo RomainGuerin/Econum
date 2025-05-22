@@ -30,12 +30,13 @@ def simulate_temperature_loop(t_c, n_etapes, t_a, ws, i):
 
     return resultats_minutes, resultats_temperatures
 
+def solve_temperature(t_c: float, t_a: float, ws: float, i: float, nocache=False):
+    temps_total = MINUTES * SECONDES
+    n_etapes = int(temps_total / PAS_DE_TEMPS)
+    if nocache:
+        return simulate_temperature_loop(t_c, n_etapes, t_a, ws, i)
+    return solve_temperature_cached(t_c, t_a, ws, i, n_etapes)
+
 @lru_cache(maxsize=None)
-def solve_temperature(t_c: float, t_a: float, ws: float, i: float):
-    temps_total = MINUTES * SECONDES
-    n_etapes = int(temps_total / PAS_DE_TEMPS)
-    return simulate_temperature_loop(t_c, n_etapes, t_a, ws, i)
-def solve_temperature_nocache(t_c: float, t_a: float, ws: float, i: float):
-    temps_total = MINUTES * SECONDES
-    n_etapes = int(temps_total / PAS_DE_TEMPS)
+def solve_temperature_cached(t_c: float, t_a: float, ws: float, i: float, n_etapes: int):
     return simulate_temperature_loop(t_c, n_etapes, t_a, ws, i)
