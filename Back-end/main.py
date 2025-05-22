@@ -3,12 +3,8 @@ from fastapi.responses import JSONResponse
 from Solver import solve_temperature, solve_temperature_nocache
 from codecarbon import EmissionsTracker
 from fastapi.middleware.cors import CORSMiddleware
-<<<<<<< HEAD
-from functools import lru_cache
-=======
 from time import sleep
 import random
->>>>>>> e14f3be (Ajout de /metrics_batch)
 
 app = FastAPI(
     title="API de simulation de température",
@@ -45,7 +41,6 @@ def predict(
         return JSONResponse(content={"error": str(e)}, status_code=400)
 
 @app.get("/metrics_detailed")
-@lru_cache(maxsize=None) # Cache pour les résultats d'émissions
 def metrics_detailed(
     Tc0: float = Query(25.0),
     Ta: float = Query(20.0),
@@ -55,14 +50,12 @@ def metrics_detailed(
     tracker = EmissionsTracker(
         save_to_file=False,
         log_level="error",
-        measure_power_secs=1  # ← ⚠️ baisse la fréquence à 1s
+        measure_power_secs=1
     )
 
     tracker.start()
     _, temps = solve_temperature(Tc0, Ta, ws, I)
-
-    sleep(1)  # ← on garde le tracker allumé au moins 1s
-
+    sleep(1)
     tracker.stop()
     data = tracker.final_emissions_data
 
@@ -78,6 +71,7 @@ def metrics_detailed(
         "energy_consumed_kWh": round(data.energy_consumed, 6),
         "temperature": list(map(lambda t: round(t, 2), temps))
     })
+
 @app.get("/metrics_batch")
 def metrics_batch(
     Tc0: float = Query(25.0),
@@ -91,12 +85,10 @@ def metrics_batch(
         log_level="error",
         measure_power_secs=1
     )
-    
-    tracker.start()
 
+    tracker.start()
     for _ in range(nb):
         solve_temperature(Tc0, Ta, ws, I)
-
     tracker.stop()
     data = tracker.final_emissions_data
 
@@ -112,19 +104,17 @@ def metrics_batch(
         "ram_energy_kWh": round(data.ram_energy, 6),
         "energy_consumed_kWh": round(data.energy_consumed, 6)
     })
+
 @app.get("/metrics_batch_nocache")
-def metrics_batch_nocache(
-    nb: int = Query(1000)
-):
+def metrics_batch_nocache(nb: int = Query(1000)):
     tracker = EmissionsTracker(save_to_file=False, log_level="error")
     tracker.start()
 
     for _ in range(nb):
         Tc0 = 25
         Ta = 20
-        ws = random.uniform(0.5, 5)    
-        I = random.uniform(10, 5000)  
-
+        ws = random.uniform(0.5, 5)
+        I = random.uniform(10, 5000)
         solve_temperature_nocache(Tc0, Ta, ws, I)
 
     tracker.stop()

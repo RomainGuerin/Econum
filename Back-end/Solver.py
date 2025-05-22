@@ -35,3 +35,7 @@ def solve_temperature(t_c: float, t_a: float, ws: float, i: float):
     temps_total = MINUTES * SECONDES
     n_etapes = int(temps_total / PAS_DE_TEMPS)
     return simulate_temperature_loop(t_c, n_etapes, t_a, ws, i)
+def solve_temperature_nocache(t_c: float, t_a: float, ws: float, i: float):
+    temps_total = MINUTES * SECONDES
+    n_etapes = int(temps_total / PAS_DE_TEMPS)
+    return simulate_temperature_loop(t_c, n_etapes, t_a, ws, i)
