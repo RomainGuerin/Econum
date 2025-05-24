@@ -40,7 +40,7 @@ def main(use_cache=True, nb_calls=10):
             print(f"{key.replace('_', ' ').capitalize()} : {value:.6f}")
 
         print("\n⏳ Attente d'une minute avant la prochaine série d'appels...\n")
-        time.sleep(60)  # Attendre une minute avant la prochaine série d'appels
+        time.sleep(60)
 
 if __name__ == "__main__":
     use_cache = input("Utiliser le cache ? (o/n) : ").strip().lower() == 'o'

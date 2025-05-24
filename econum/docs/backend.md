@@ -13,7 +13,7 @@ Il permet:
 - `CodeCarbon` : suivi de l’empreinte carbone et de la consommation de ressources
 - `@lru_cache` : mise en cache pour éviter les recalculs
 - `Numba` : compilation JIT pour accélérer les calculs lourds
-- `Cython` (optionnel) : alternative pour encore plus de performance
+- `Cython` (optionnel) : alternative pour Numba
 
 ## Prérequis
 - Python 3.13+
@@ -55,6 +55,8 @@ http://127.0.0.1:8000/redoc
 ```
 
 ## Tests d'API
+
+> /!\ Par défaut le cache est activé, ce qui permet d'éviter les recalculs inutiles.
 
 Url d'exemple pour tester l'API :  
 ```bash

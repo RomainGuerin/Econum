@@ -6,7 +6,7 @@
 - Réduire le recalcul inutile (vent, intensité...).
 - Utiliser des outils comme Numba ou Cython pour améliorer les performances.
 - Utiliser `@lru_cache` pour éviter les redondances de calcul.
-- Préférer une prévision unique longue à plusieurs prévisions courtes si possible.
+- Préférer d'une méthode de calcul 30x1min plutôt que 1x30min pour optimiser la logique de calcul et éviter les conditions répétées.
 
 ## Frontend
 

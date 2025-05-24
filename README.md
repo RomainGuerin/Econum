@@ -1,6 +1,6 @@
 # Econum
 
-**Econum** est une solution logicielle permettant de simuler l’évolution de la température d'un câble électrique pendant 30 minutes, en fonction de paramètres environnementaux (température ambiante, intensité lumineuse, vent...).
+**Econum** est une solution logicielle permettant de simuler l’évolution de la température d'un câble électrique pendant 30 minutes, en fonction de paramètres environnementaux (température ambiante, vent, intensité lumineuse).
 
 # Documentation MkDocs
 

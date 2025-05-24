@@ -152,7 +152,7 @@
 <th>CO2</th>
 <th>Temps d’exécution</th>
 <th>Temps de code</th>
-<th>Complexité</th>
+<th>Complexité*</th>
 </tr>
 </thead>
 <tbody>
@@ -161,7 +161,7 @@
 <td>~0.0217 kWh</td>
 <td>~0.0006 kWh</td>
 <td>~0.02336 kWh</td>
-<td>~0.001 kg</td>
+<td>~0.0013 kg</td>
 <td>~217.1s</td>
 <td>45 min</td>
 <td>***</td>
@@ -198,6 +198,7 @@
 </tr>
 </tbody>
 </table>
+<p><code>* Complexité estimée : (* = simple, ***** = très complexe)</code></p>
 <h3 id="prevision-30x1min-vs-1x30min">Prévision 30x1min vs 1x30min</h3>
 <table>
 <thead>
@@ -210,19 +211,20 @@
 </thead>
 <tbody>
 <tr>
-<td>30x1min</td>
+<td>1x30min</td>
 <td>~0.0217 kWh</td>
-<td>~0.001 kg</td>
+<td>~0.0013 kg</td>
 <td>~217.1s</td>
 </tr>
 <tr>
-<td>1x30min</td>
+<td>30x1min</td>
 <td>~0.014 kWh</td>
 <td>~0.0008 kg</td>
 <td>~140.3s</td>
 </tr>
 </tbody>
 </table>
+<p>Il est donc préférable de faire 30x1 minutes. Le code Python est mieux optimisé, principalement parce qu'il ne vérifie pas si nous devons sauvegardée l'information (vérification faite autant de fois qu'il y a de calculs, soit 1,8 milliard). Mais le passage avec Numba ou Cython, cela n'a aucun impact.</p>
 <h3 id="backend-consommation-par-utilisateurs">Backend : consommation par utilisateurs</h3>
 <table>
 <thead>
@@ -233,25 +235,33 @@
 </thead>
 <tbody>
 <tr>
-<td>10 utilisateurs/min</td>
-<td>0.008933</td>
+<td>10 utilisateurs/min (sans cache)</td>
+<td>0.018966</td>
 </tr>
 <tr>
-<td>100 utilisateurs/min</td>
-<td>0.006447</td>
+<td>100 utilisateurs/min (sans cache)</td>
+<td>0.156688</td>
+</tr>
+<tr>
+<td>1000 utilisateurs/min (sans cache)</td>
+<td>17.317401</td>
 </tr>
 <tr>
 <td>1000 utilisateurs/min (cache)</td>
-<td>0.001754</td>
+<td>0.002516</td>
 </tr>
 </tbody>
 </table>
+<p>Nous observons une tendance logique :
+Plus le nombre d'utilisateurs augmente, plus la consommation moyenne augmente. À l'inverse, avec l'ajout du cache, la consommation reste minimale si les paramètres d'entrée ont déjà été calculés. Nous constatons ainsi l'avantage du cache : une consommation plus faible et une réactivité nettement supérieure.</p>
 <h2 id="empreinte-energetique-du-frontend">Empreinte énergétique du frontend</h2>
+<p>L'empreinte énergétique et carbone a été analysée avec Carbonalyser et Globemallow, sur les deux outils nous avons des résultats différents mais qui semblent assez proches de la réalité :</p>
 <h3 id="carbonalyser">Carbonalyser</h3>
 <p><img alt="Carbonalyser" src="../images/carbonalyser.png" /></p>
 <h3 id="globemallow">Globemallow</h3>
 <p><img alt="Globemallow" src="../images/globemallow.png" /></p>
 <h3 id="impact-du-cache">Impact du cache</h3>
+<p>Néanmoins, nous pouvons voir que le cache permet totalement d’optimiser la consommation en la rendant presque indétectable :</p>
 <p><img alt="Cache" src="../images/cache_impact.png" /></p>
               
             </div>

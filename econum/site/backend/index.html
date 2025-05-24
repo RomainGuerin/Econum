@@ -115,7 +115,7 @@ Il permet:<br />
 <li><code>CodeCarbon</code> : suivi de l’empreinte carbone et de la consommation de ressources</li>
 <li><code>@lru_cache</code> : mise en cache pour éviter les recalculs</li>
 <li><code>Numba</code> : compilation JIT pour accélérer les calculs lourds</li>
-<li><code>Cython</code> (optionnel) : alternative pour encore plus de performance</li>
+<li><code>Cython</code> (optionnel) : alternative pour Numba</li>
 </ul>
 <h2 id="prerequis">Prérequis</h2>
 <ul>
@@ -152,6 +152,9 @@ Il permet:<br />
 <pre><code class="language-bash">http://127.0.0.1:8000/redoc
 </code></pre>
 <h2 id="tests-dapi">Tests d'API</h2>
+<blockquote>
+<p>/!\ Par défaut le cache est activé, ce qui permet d'éviter les recalculs inutiles.</p>
+</blockquote>
 <p>Url d'exemple pour tester l'API :  </p>
 <pre><code class="language-bash">http://127.0.0.1:8000/predict?Tc0=25&amp;Ta=20&amp;ws=2&amp;I=100
 http://127.0.0.1:8000/metrics_detailed?Tc0=25&amp;Ta=20&amp;ws=2&amp;I=100
