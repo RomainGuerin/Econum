@@ -35,7 +35,7 @@
 | 1x30min | ~0.0217 kWh | ~0.0013 kg | ~217.1s |
 | 30x1min | ~0.014 kWh | ~0.0008 kg | ~140.3s |
 
-Il est donc préférable de faire 30x1 minutes. Le code Python est mieux optimisé, principalement parce qu'il ne vérifie pas si nous devons sauvegardée l'information (vérification faite autant de fois qu'il y a de calculs, soit 1,8 milliard). Mais le passage avec Numba ou Cython, cela n'a aucun impact.
+Il est donc préférable de faire 30x1 minutes. Cette approche permet une meilleure optimisation du code Python, notamment parce qu'elle évite de vérifier systématiquement la nécessité de sauvegarder les données, une vérification qui est effectuée 1,8 milliard de fois sinon. En revanche, l'utilisation de Numba ou Cython n'apporte ici aucun gain de performance notable entre les deux versions.
 
 ### Backend : consommation par utilisateurs
 
