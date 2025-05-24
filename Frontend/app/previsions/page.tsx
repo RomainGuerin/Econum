@@ -29,6 +29,10 @@ export default function TemperatureForecast() {
         </div>
       </div>
 
+      <CardDescription className="text-sm">
+        (Cache activé)
+      </CardDescription>
+      
       <Card className="overflow-hidden shadow-lg">
         <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10 border-b">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

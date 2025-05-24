@@ -25,7 +25,7 @@ export default function Dashboard() {
   const fetchMetrics = async () => {
     setLoading(true)
     try {
-      const res = await fetch("http://127.0.0.1:8000/metrics_detailed?Tc0=25&Ta=20&ws=1&I=100")
+      const res = await fetch("http://127.0.0.1:8000/metrics_detailed?Tc0=25&Ta=20&ws=1&I=100&nocache=true")
       const json = await res.json()
       setMetrics(json)
     } catch (e) {
@@ -52,6 +52,9 @@ export default function Dashboard() {
     </CardTitle>
     <CardDescription className="text-sm">
       Suivi de la consommation énergétique et émissions
+    </CardDescription>
+    <CardDescription className="text-sm">
+      (Cache désactivé)
     </CardDescription>
   </CardHeader>
   <CardContent className="flex flex-col gap-3 p-4">
@@ -123,6 +126,9 @@ export default function Dashboard() {
       </CardTitle>
             <CardDescription>
               Graphique sur 30 minutes.
+            </CardDescription>
+            <CardDescription className="text-sm">
+              (Cache activé)
             </CardDescription>
           </CardHeader>
           <CardContent>

@@ -42,6 +42,10 @@ export default function ConsumptionPage() {
           <span>Actualiser</span>
         </Button>
       </div>
+      
+      <CardDescription className="text-sm">
+        (Cache activé)
+      </CardDescription>
 
       <div className="grid gap-6 md:grid-cols-2">
         {/* Consommation énergétique */}

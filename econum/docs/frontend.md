@@ -1,7 +1,7 @@
 # Frontend – Fiche de configuration
 
 ## Description
-Le frontend est une application React qui :  
+Le frontend est une application React et Next.js qui :  
 - Affiche graphiquement l’évolution de la température simulée  
 - Présente les résultats dans les graphiques de visualisation dédiés  
 - Communique dynamiquement avec le backend via API  
