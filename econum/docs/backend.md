@@ -4,7 +4,7 @@
 
 Le backend est développé en Python avec le framework FastAPI.  
 Il permet:  
-- La simulation de température sur 30 minutes, à partir de paramètres fournis par l’utilisateur (température initiale, vent, intensité…).  
+- La simulation de température sur 30 minutes, à partir de paramètres fournis par l’utilisateur (température initiale, température ambiante, vent, intensité).  
 - La mesure de l’énergie et les ressources consommée ainsi que les émissions de CO₂ lors du calcul.  
 - Une API REST pour requêtes GET de simulation ou métriques.  
 

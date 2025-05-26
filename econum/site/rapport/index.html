@@ -224,7 +224,7 @@
 </tr>
 </tbody>
 </table>
-<p>Il est donc préférable de faire 30x1 minutes. Le code Python est mieux optimisé, principalement parce qu'il ne vérifie pas si nous devons sauvegardée l'information (vérification faite autant de fois qu'il y a de calculs, soit 1,8 milliard). Mais le passage avec Numba ou Cython, cela n'a aucun impact.</p>
+<p>Il est donc préférable de faire 30x1 minutes. Cette approche permet une meilleure optimisation du code Python, notamment parce qu'elle évite de vérifier systématiquement la nécessité de sauvegarder les données, une vérification qui est effectuée 1,8 milliard de fois sinon. En revanche, l'utilisation de Numba ou Cython n'apporte ici aucun gain de performance notable entre les deux versions.</p>
 <h3 id="backend-consommation-par-utilisateurs">Backend : consommation par utilisateurs</h3>
 <table>
 <thead>

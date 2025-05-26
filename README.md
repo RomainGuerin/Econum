@@ -6,6 +6,7 @@
 
 ```bash
 pip install mkdocs
+cd econum
 mkdocs serve --dev-addr=0.0.0.0:9000
 ```
 
